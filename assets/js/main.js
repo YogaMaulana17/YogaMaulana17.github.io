@@ -5,55 +5,30 @@ document.addEventListener("DOMContentLoaded", function () {
     var age = now.getFullYear() - birthDate.getFullYear();
     var monthDiff = now.getMonth() - birthDate.getMonth();
     var dayDiff = now.getDate() - birthDate.getDate();
-    var hourDiff = now.getHours() - birthDate.getHours();
-    var minuteDiff = now.getMinutes() - birthDate.getMinutes();
-    var secondDiff = now.getSeconds() - birthDate.getSeconds();
 
     // Adjust for negative differences
-    if (secondDiff < 0) {
-      minuteDiff--;
-      secondDiff += 60;
-    }
-    if (minuteDiff < 0) {
-      hourDiff--;
-      minuteDiff += 60;
-    }
-    if (hourDiff < 0) {
-      dayDiff--;
-      hourDiff += 24;
-    }
-    if (dayDiff < 0) {
-      monthDiff--;
-      // Get the last day of the previous month
-      var lastMonth = now.getMonth() - 1;
-      var lastMonthDate = new Date(now.getFullYear(), lastMonth + 1, 0);
-      dayDiff += lastMonthDate.getDate();
-    }
-    if (monthDiff < 0) {
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
       age--;
-      monthDiff += 12;
     }
 
-    return {
-      years: age,
-      months: monthDiff,
-      days: dayDiff,
-      hours: hourDiff,
-      minutes: minuteDiff,
-      seconds: secondDiff,
-    };
+    return age;
   }
 
   function updateAge(birthDate) {
     var ageElement = document.getElementById("age");
+    var age = calculateAge(birthDate);
+    ageElement.textContent = `${age} Tahun`;
+
     setInterval(function () {
       var age = calculateAge(birthDate);
-      ageElement.textContent = `${age.years} Tahun`;
+      ageElement.textContent = `${age} Tahun`;
     }, 1000);
   }
 
-  // Masukkan tanggal lahir di sini (format: tahun, bulan-1, tanggal, jam, menit, detik)
-  var birthDate = new Date(2003, 6, 16, 0, 0, 0); // Contoh: 1 Januari 1990 pukul 00:00:00
+  // Masukkan tanggal lahir di sini (format: tahun, bulan-1, tanggal)
+  var birthDate = new Date(2003, 5, 16); // Contoh: 16 Juni 2003
+
+  // Initial update
   updateAge(birthDate);
 });
 
