@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Masukkan tanggal lahir di sini (format: tahun, bulan-1, tanggal)
-  var birthDate = new Date(2003, 5, 16); // Contoh: 16 Juni 2003
+  var birthDate = new Date(2004, 5, 16); // Contoh: 16 Juni 2003
 
   // Initial update
   updateAge(birthDate);
